@@ -43,3 +43,14 @@ class Argument:
 
 
 
+class Schema:
+
+    def __init__(self, query):
+        self.query = query
+    
+
+    def __repr__(self):
+        return "<Schema>"
+
+
+

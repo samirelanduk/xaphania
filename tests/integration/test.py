@@ -14,8 +14,10 @@ class Test(TestCase):
         query.add_field(
          "person", person, arguments=[xaphania.Argument("id", integer)]
         )
-        print(query.fields[1].arguments[0])
 
         person.add_field("name", string)
+
+        schema = xaphania.Schema(query)
+
 
         
