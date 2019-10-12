@@ -9,9 +9,8 @@ class ObjectType:
         return f"<{self.name} Type>"
     
 
-    def add_field(self, field_name, object_type, arguments=None, nullable=False):
-        arguments = arguments or []
-        self.fields.append(Field(field_name, object_type, arguments, nullable))
+    def add_field(self, *args, **kwargs):
+        self.fields.append(Field(*args, **kwargs))
     
 
     def schema_repr(self):
@@ -24,11 +23,12 @@ class ObjectType:
 
 class Field:
     
-    def __init__(self, name, object_type, arguments, nullable=False):
+    def __init__(self, name, object_type, arguments=None, list=False, nullable=False):
         self.name = name
         self.type = object_type
-        self.arguments = arguments
+        self.arguments = arguments or []
         self.nullable = nullable
+        self.list = list
     
 
     def __repr__(self):
@@ -36,11 +36,13 @@ class Field:
 
     
     def schema_repr(self):
-        return "{}{}: {}{}".format(
+        return "{}{}: {}{}{}{}".format(
          self.name,
          "" if not self.arguments else\
           f"({', '.join(a.schema_repr() for a in self.arguments)})",
-         self.type.name, "" if self.nullable else "!"
+         "[" if self.list else "",
+         self.type.name, "]" if self.list else "",
+         "" if self.nullable else "!",
         )
 
 
