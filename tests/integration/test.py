@@ -28,4 +28,8 @@ class Test(TestCase):
         schema = xaphania.Schema(query)
 
 
-        
+        string = xaphania.QueryString("{ user }")
+        self.assertEqual(string.structure, {"user": None})
+        string = xaphania.QueryString("{ user version }")
+        self.assertEqual(string.structure, {"user": None, "version": None})
+        string = xaphania.QueryString("{ user { name } version }")

@@ -79,3 +79,19 @@ class Schema:
 
 
 
+class QueryString:
+
+    def __init__(self, string):
+        self.string = string
+        self.structure = {}
+        field = ""
+        for char in string:
+            if char.isalpha():
+                field += char
+            if char == " " and field:
+                self.structure[field] = None
+                field = ""
+        
+
+
+
